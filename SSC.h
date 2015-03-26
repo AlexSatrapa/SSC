@@ -94,9 +94,6 @@ class SSC
     return float(raw) * 200.0 / 2047 - 50.0;
     }
 
-  //  control the sensor from a stream
-  uint8_t commandRequest(Stream& stream);
-
   private:
 
   uint8_t setError(uint8_t error) { f = (f & FlagsMask) | error; return error; }
