@@ -6,6 +6,7 @@ HSCDANN005PGSA5::HSCDANN005PGSA5(byte slaveSelectPin)
 	pinMode(slaveSelectPin, OUTPUT);
 	slave_select_pin = slaveSelectPin;
 	spi_settings = SPISettings(800000, MSBFIRST, SPI_MODE0);
+	SPI.begin();
 }
 
 void HSCDANN005PGSA5::read(byte buf[])
