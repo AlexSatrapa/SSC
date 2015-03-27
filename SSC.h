@@ -1,14 +1,15 @@
 #ifndef HONEYWELL_SSC_H
 #define HONEYWELL_SSC_H
 
-//  Author: Tomas Van Verrewegen <tomasvanverrewegen@telenet.be>
-//  Version: 0.2
-
+// Based on code originally by Tomas Van Verrewegen <tomasvanverrewegen@telenet.be>
 // From https://code.google.com/p/arduino-ssc/
 
+#if ARDUINO >= 100
 #include <Arduino.h>
-#include <Wire.h>
-#include <SPI.h>
+#else
+#include <WProgram.h>
+#endif
+
 class SSC
 {
   public:
@@ -30,7 +31,7 @@ class SSC
     FlagsMask               = ~ErrorMask
   };
 
-  SSC(uint8_t address, uint8_t powerPin = 255);
+  SSC();
 
   uint8_t address() const { return a; }
   uint8_t powerPin() const { return q; }
@@ -79,8 +80,8 @@ class SSC
   }
 
   //  start / stop the device
-  uint8_t start();
-  uint8_t stop();
+  virtual uint8_t start() = 0;
+  virtual uint8_t stop() = 0;
 
   //  update pressure and temperature
   uint8_t update();
@@ -96,9 +97,8 @@ class SSC
 
   private:
 
+  virtual void read(byte buf[]) = 0;
   uint8_t setError(uint8_t error) { f = (f & FlagsMask) | error; return error; }
-  uint8_t commandReply(Stream& stream, uint8_t result) { stream.println(result); return result; }
-  template<typename T> uint8_t commandReply(Stream& stream, uint8_t result, const T& data) { stream.println(data); return result; }
 
   uint8_t a;
   uint8_t q;
@@ -121,3 +121,4 @@ class SSC
 };
 
 #endif
+// -*- coding: utf-8; tab-width: 3; indent-tabs-mode: nil -*-
