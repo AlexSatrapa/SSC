@@ -7,8 +7,8 @@ class HSCDANN005PGSA5: public SSC
 {
 	public:
 		HSCDANN005PGSA5(byte slaveSelectPin);
-		uint8_t start();
-		uint8_t stop();
+		byte start();
+		byte stop();
 	protected:
 		byte slave_select_pin;
 	private:

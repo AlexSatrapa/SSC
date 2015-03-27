@@ -6,9 +6,9 @@ SSC::SSC()
   q = 0;
 }
 
-uint8_t SSC::update()
+byte SSC::update()
 {
-  uint8_t x, y, v, w, s;
+  byte x, y, v, w, s;
   byte buf[4];
 
   read(buf);
@@ -20,8 +20,8 @@ uint8_t SSC::update()
 
   switch(s) {
     case 0:
-      p = (((uint16_t) (x & 0x3f)) << 8) | y;
-      t = ((((uint16_t) v) << 8) | w) >> 5;
+      p = (((int) (x & 0x3f)) << 8) | y;
+      t = ((((int) v) << 8) | w) >> 5;
       return setError(NoError);
 
     case 2:

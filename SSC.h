@@ -33,18 +33,18 @@ class SSC
 
   SSC();
 
-  uint8_t address() const { return a; }
-  uint8_t powerPin() const { return q; }
+  byte address() const { return a; }
+  byte powerPin() const { return q; }
 
-  uint8_t error() const { return f & ErrorMask; }
-  uint8_t flags() const { return f & FlagsMask; }
+  byte error() const { return f & ErrorMask; }
+  byte flags() const { return f & FlagsMask; }
 
   bool isRunning() const { return f & RunningFlag; }
 
   // SPI specifics
-  void setSPImode(uint8_t mode) { data_mode = mode; }
-  void setBitMode(uint8_t order) { bit_order = order; }
-  void setClockDiv(uint8_t div) { clock_div = div; }
+  void setSPImode(byte mode) { data_mode = mode; }
+  void setBitMode(byte order) { bit_order = order; }
+  void setClockDiv(byte div) { clock_div = div; }
   void setTemperatureCompensated(boolean comp) { temp_comp = comp; }
   boolean is_compensated() const {
     return temp_comp;
@@ -59,16 +59,16 @@ class SSC
   void setMaxPressure(float p) { pmax = p; }
 
   //  minimum reading of the sensor (see datasheet)
-  uint16_t minRaw() const { return rmin; }
-  void setMinRaw(uint16_t raw) { rmin = raw; }
+  int minRaw() const { return rmin; }
+  void setMinRaw(int raw) { rmin = raw; }
 
   //  maximum reading of the sensor (see datasheet)
-  uint16_t maxRaw() const { return rmax; }
-  void setMaxRaw(uint16_t raw) { rmax = raw; }
+  int maxRaw() const { return rmax; }
+  void setMaxRaw(int raw) { rmax = raw; }
 
   //  return pressure and temperature
-  uint16_t pressure_Raw() const { return p; }
-  uint16_t temperature_Raw() const { return t; }
+  int pressure_Raw() const { return p; }
+  int temperature_Raw() const { return t; }
   float pressure() const { return rawToPressure(pressure_Raw()); }
   float temperature() const {
     if (is_compensated()) {
@@ -80,42 +80,42 @@ class SSC
   }
 
   //  start / stop the device
-  virtual uint8_t start() = 0;
-  virtual uint8_t stop() = 0;
+  virtual byte start() = 0;
+  virtual byte stop() = 0;
 
   //  update pressure and temperature
-  uint8_t update();
+  byte update();
 
   //  convert pressure and temperature
-  float rawToPressure(uint16_t raw) const { return rawToPressure(raw, rmin, rmax, pmin, pmax); }
-  static float rawToPressure(uint16_t raw, uint16_t rawMin, uint16_t rawMax, float pMin, float pMax) {
+  float rawToPressure(int raw) const { return rawToPressure(raw, rmin, rmax, pmin, pmax); }
+  static float rawToPressure(int raw, int rawMin, int rawMax, float pMin, float pMax) {
     return (float(raw - rawMin) * (pMax - pMin)) / (rawMax - rawMin) + pMin;
     }
-  static float rawToTemperature(uint16_t raw) {
+  static float rawToTemperature(int raw) {
     return float(raw) * 200.0 / 2047 - 50.0;
     }
 
   private:
 
   virtual void read(byte buf[]) = 0;
-  uint8_t setError(uint8_t error) { f = (f & FlagsMask) | error; return error; }
+  byte setError(byte error) { f = (f & FlagsMask) | error; return error; }
 
-  uint8_t a;
-  uint8_t q;
-  uint8_t f;
-  uint16_t p;
-  uint16_t t;
-  uint16_t rmin;
-  uint16_t rmax;
+  byte a;
+  byte q;
+  byte f;
+  int p;
+  int t;
+  int rmin;
+  int rmax;
   float pmin;
   float pmax;
-  uint8_t data_mode;
-  uint8_t bit_order;
+  byte data_mode;
+  byte bit_order;
   // HSC clock speed is 50-800kHz
   // For a 16MHz Arduino:
   //   SPI_CLOCK_DIV128  125kHz
   //   SPI_CLOCK_DIV64   250kHz
-  uint8_t clock_div;
+  byte clock_div;
   boolean temp_comp; // Remember, only the HSC modules are temperature compensated
 
 };
