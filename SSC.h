@@ -41,13 +41,10 @@ class SSC
 
   bool isRunning() const { return f & RunningFlag; }
 
-  // SPI specifics
-  void setSPImode(byte mode) { data_mode = mode; }
-  void setBitMode(byte order) { bit_order = order; }
-  void setClockDiv(byte div) { clock_div = div; }
-  void setTemperatureCompensated(boolean comp) { temp_comp = comp; }
-  boolean is_compensated() const {
-    return temp_comp;
+  // HSC devices are temperature compensated
+  void setTemperatureCompensated(boolean comp) { temperature_compensated = comp; }
+  boolean isCompensated() const {
+    return temperature_compensated;
   }
 
   //  minimum pressure of the sensor (in bar, Pascal, ...)
@@ -67,12 +64,12 @@ class SSC
   void setMaxRaw(int raw) { rmax = raw; }
 
   //  return pressure and temperature
-  int pressure_Raw() const { return p; }
-  int temperature_Raw() const { return t; }
-  float pressure() const { return rawToPressure(pressure_Raw()); }
+  int rawPressure() const { return p; }
+  int rawTemperature() const { return t; }
+  float pressure() const { return rawToPressure(rawPressure()); }
   float temperature() const {
-    if (is_compensated()) {
-      return rawToTemperature(temperature_Raw());
+    if (isCompensated()) {
+      return rawToTemperature(rawTemperature());
     }
     else {
       return 0;
@@ -116,7 +113,7 @@ class SSC
   //   SPI_CLOCK_DIV128  125kHz
   //   SPI_CLOCK_DIV64   250kHz
   byte clock_div;
-  boolean temp_comp; // Remember, only the HSC modules are temperature compensated
+  boolean temperature_compensated = false; // Remember, only the HSC modules are temperature compensated
 
 };
 
