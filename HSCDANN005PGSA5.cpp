@@ -2,6 +2,9 @@
 
 HSCDANN005PGSA5::HSCDANN005PGSA5(byte slaveSelectPin)
 {
+	setMinRaw(1638);
+	setMaxRaw(14746);
+	setTemperatureCompensated(1);
 	digitalWrite(slaveSelectPin, HIGH);
 	pinMode(slaveSelectPin, OUTPUT);
 	slave_select_pin = slaveSelectPin;
