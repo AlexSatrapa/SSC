@@ -29,14 +29,16 @@ void HSCDANN005PGSA5::read(byte buf[])
 
 uint8_t HSCDANN005PGSA5::start()
 {
-	digitalWrite(powerPin(), HIGH);
+	if (powerControlled) digitalWrite(powerPin(), HIGH);
+	setFlag(RunningFlag);
 	delay(5);
 	return 1;
 }
 
 uint8_t HSCDANN005PGSA5::stop()
 {
-	digitalWrite(powerPin(), LOW);
+	if (powerControlled) digitalWrite(powerPin(), LOW);
+	clearFlag(RunningFlag);
 	return 1;
 }
 

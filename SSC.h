@@ -38,8 +38,12 @@ class SSC
 
   byte error() const { return f & ErrorMask; }
   byte flags() const { return f & FlagsMask; }
+  void setFlag( Flag flag );
+  void clearFlag( Flag flag );
 
+  bool powerControlled = false;
   bool isRunning() const { return f & RunningFlag; }
+  void setPowerPin( byte pin );
 
   // HSC devices are temperature compensated
   void setTemperatureCompensated(boolean comp) { temperature_compensated = comp; }

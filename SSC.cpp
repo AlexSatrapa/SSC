@@ -35,3 +35,19 @@ byte SSC::update()
   }
   return setError(DiagnosticError);
 }
+
+void SSC::setPowerPin( byte pin )
+{
+  q = pin;
+  powerControlled = true;
+}
+
+void SSC::setFlag( Flag flag )
+{
+  f |= flag;
+}
+
+void SSC::clearFlag( Flag flag )
+{
+  f &= ~flag;
+}
