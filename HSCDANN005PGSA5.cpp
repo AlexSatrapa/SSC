@@ -14,7 +14,7 @@ HSCDANN005PGSA5::HSCDANN005PGSA5(byte slaveSelectPin)
 
 void HSCDANN005PGSA5::read(byte buf[])
 {
-	byte s = 0xAA;
+	byte s = 0xAA; // Just a convenient value for monitoring MOSI
 
 	SPI.beginTransaction(spi_settings);
 	digitalWrite(slave_select_pin, LOW);
