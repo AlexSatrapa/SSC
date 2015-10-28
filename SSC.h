@@ -121,5 +121,7 @@ class SSC
 
 };
 
+#include "HSCDANN005PGSA5.h"
+
 #endif
 // -*- coding: utf-8; tab-width: 3; indent-tabs-mode: nil -*-
