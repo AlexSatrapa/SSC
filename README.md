@@ -20,3 +20,7 @@ The SPI functionality in this code has used HSCDANN005PGSA5 as a reference part.
 [HSC-Datasheet]: http://sensing.honeywell.com/index.php?ci_id=151133 "Honeywell TruStability® Board Mount Pressure Sensors: HSC Series — High Accuracy, Compensated/Amplified"
 [SSC]: http://sensing.honeywell.com/honeywell-sensing-and-control-product-search?sid=14B66C2131E5&Ne=3025&N=3729 "Honeywell TruStability® SSC Series"
 [SSC-Datasheet]: http://sensing.honeywell.com/honeywell-sensing-trustability-ssc-series-standard-accuracy-board-mount-pressure-sensors-50099533-a-en.pdf "Honeywell TruStability® Board Mount Pressure Sensors: SSC Series — Standard Accuracy, Compensated/Amplified"
+
+# Usage
+
+I plan to add usage examples to the wiki by the end of April 2017. Please contact me at grail@goldweb.com.au if you need assistance in using this library: your request for help helps motivate me to maintain the library!
