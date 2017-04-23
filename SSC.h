@@ -33,20 +33,20 @@ class SSC
 
   SSC();
 
-  byte address() const { return a; }
-  byte powerPin() const { return q; }
+  byte address() const { return i2c_address; }
+  byte powerPin() const { return power_pin; }
 
-  byte error() const { return f & ErrorMask; }
-  byte flags() const { return f & FlagsMask; }
+  byte error() const { return conditions & ErrorMask; }
+  byte flags() const { return conditions & FlagsMask; }
   void setFlag( Flag flag );
   void clearFlag( Flag flag );
 
   bool powerControlled = false;
-  bool isRunning() const { return f & RunningFlag; }
+  bool isRunning() const { return conditions & RunningFlag; }
   void setPowerPin( byte pin );
 
   // HSC devices are temperature compensated
-  void setTemperatureCompensated(boolean comp) { temperature_compensated = comp; }
+  void setTemperatureCompensated(boolean is_compensated) { temperature_compensated = is_compensated; }
   boolean isCompensated() const {
     return temperature_compensated;
   }
@@ -68,8 +68,8 @@ class SSC
   void setMaxRaw(int raw) { rmax = raw; }
 
   //  return pressure and temperature
-  int rawPressure() const { return p; }
-  int rawTemperature() const { return t; }
+  int rawPressure() const { return pressure_count; }
+  int rawTemperature() const { return temperature_count; }
   float pressure() const { return rawToPressure(rawPressure()); }
   float temperature() const {
     if (isCompensated()) {
@@ -99,13 +99,13 @@ class SSC
   private:
 
   virtual void read(byte buf[]) = 0;
-  byte setError(byte error) { f = (f & FlagsMask) | error; return error; }
+  byte setError(byte error) { conditions = (conditions & FlagsMask) | (error & ErrorMask); return error; }
 
-  byte a;
-  byte q;
-  byte f;
-  int p;
-  int t;
+  byte i2c_address;
+  byte power_pin;
+  byte conditions;
+  int pressure_count;
+  int temperature_count;
   int rmin;
   int rmax;
   float pmin;

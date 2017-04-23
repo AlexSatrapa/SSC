@@ -17,7 +17,7 @@ extern "C" void __cxa_pure_virtual() { while (1); }
 
 SSC::SSC()
 {
-  q = 0;
+  power_pin = 0;
 }
 
 byte SSC::update()
@@ -34,8 +34,8 @@ byte SSC::update()
 
   switch(s) {
     case 0:
-      p = (((int) (x & 0x3f)) << 8) | y;
-      t = ((((int) v) << 8) | w) >> 5;
+      pressure_count = (((int) (x & 0x3f)) << 8) | y;
+      temperature_count = ((((int) v) << 8) | w) >> 5;
       return setError(NoError);
 
     case 2:
@@ -52,16 +52,16 @@ byte SSC::update()
 
 void SSC::setPowerPin( byte pin )
 {
-  q = pin;
+  power_pin = pin;
   powerControlled = true;
 }
 
 void SSC::setFlag( Flag flag )
 {
-  f |= flag;
+  conditions |= flag;
 }
 
 void SSC::clearFlag( Flag flag )
 {
-  f &= ~flag;
+  conditions &= ~flag;
 }
