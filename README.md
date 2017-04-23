@@ -14,7 +14,7 @@ Paraphrased from [the brochure][HSC-Datasheet]:
 
 "The Honeywell TruStability® High Accuracy Silicon Ceramic (HSC) and Standard Accuracy Silicon Ceramic (SSC) air pressure sensors are piezoresistive silicon pressure sensors offering a digital output for reading pressure over the specified full scale pressure span and temperature range."
 
-The SPI functionality in this code has used HSCDANN005PGSA5 as a reference part.
+The SPI functionality in this code uses HSCDANN005PGSA5 as the normative reference, with Honeywell technical note [SPI Communication with Honeywell Digital Output Pressure Sensors](http://sensing.honeywell.com/spi-comms-digital-ouptu-pressure-sensors-tn-008202-3-en-final-30may12.pdf) as the technical reference.
 
 [HSC]: http://sensing.honeywell.com/products/pressure-sensors-board-mount/low-pressure-sensors/TruStability-HSC/Ne/3025/N/3728 "Honeywell TruStability® HSC Series"
 [HSC-Datasheet]: http://sensing.honeywell.com/index.php?ci_id=151133 "Honeywell TruStability® Board Mount Pressure Sensors: HSC Series — High Accuracy, Compensated/Amplified"
